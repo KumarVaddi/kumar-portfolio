@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kumar Vaddi · Full Stack Developer</title>
+<meta name="description" content="Kumar Vaddi — Full Stack Developer with 3+ years building Node.js, Express, MongoDB and React applications for enterprise, healthcare and e-commerce.">
+<meta property="og:title" content="Kumar Vaddi — Full Stack Developer">
+<meta property="og:description" content="Node.js, Express, MongoDB and React. 3+ years building enterprise, healthcare and e-commerce systems.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232F5BEA'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='monospace' font-weight='700'>KV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F4F7; --surface:#FFFFFF; --ink:#1A2230; --muted:#5A6577; --line:#D9DEE6;
+  --accent:#2F5BEA; --ok:#2E8B57; --code-bg:#1A2230; --code-ink:#E6EAF0; --code-key:#8FB0FF; --code-str:#9BD7AE; --code-dim:#7D8899;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#121722; --surface:#1A2130; --ink:#E7EBF2; --muted:#9AA5B8; --line:#2A3446;
+    --accent:#7C9CFF; --ok:#5FC88A; --code-bg:#0E131C; --code-ink:#E6EAF0; --code-key:#8FB0FF; --code-str:#9BD7AE; --code-dim:#6E7A8C;
+    color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+
+/* Nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.brand{font-family:var(--mono);font-weight:500;font-size:.95rem;color:var(--ink);text-decoration:none}
+.brand span{color:var(--accent)}
+nav ul{display:flex;gap:clamp(12px,3vw,28px);list-style:none;margin:0;padding:0}
+nav ul a{color:var(--muted);text-decoration:none;font-size:.95rem}
+nav ul a:hover{color:var(--ink)}
+@media (max-width:560px){nav ul li.hide-sm{display:none}}
+
+/* Hero */
+.hero{padding:clamp(56px,10vw,112px) 0 clamp(56px,8vw,96px)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(32px,5vw,64px);align-items:center}
+@media (max-width:880px){.hero .wrap{grid-template-columns:1fr}}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.75rem,7vw,5.25rem);line-height:.95;letter-spacing:-.03em;margin:0 0 20px}
+.hero .role{font-family:var(--display);font-weight:500;font-size:clamp(1.25rem,2.4vw,1.6rem);color:var(--muted);margin:0 0 20px;letter-spacing:-.01em}
+.hero p.lede{max-width:34em;margin:0 0 32px;color:var(--ink)}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:8px;font-weight:600;font-size:.98rem;text-decoration:none;border:1px solid var(--accent)}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.ghost{color:var(--accent);background:transparent}
+.btn:hover{filter:brightness(1.08)}
+
+/* Request / response terminal */
+.term{background:var(--code-bg);color:var(--code-ink);border-radius:14px;font-family:var(--mono);font-size:.875rem;line-height:1.7;overflow:hidden;box-shadow:0 24px 48px -24px rgba(20,30,60,.45)}
+.term-head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08);color:var(--code-dim);font-size:.8rem}
+.term-head .dots{display:flex;gap:6px}
+.term-head .dots i{width:10px;height:10px;border-radius:50%;background:#3A4458;display:block}
+.term-body{padding:18px 20px 22px;overflow-x:auto}
+.req{white-space:nowrap}
+.req .verb{color:var(--code-str);font-weight:500}
+.caret{display:inline-block;width:.55em;height:1.1em;background:var(--code-ink);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.status{margin:10px 0 8px;color:var(--code-dim)}
+.status b{color:var(--code-str);font-weight:500}
+pre.json{margin:0;white-space:pre}
+.k{color:var(--code-key)}.s{color:var(--code-str)}.n{color:#F5C77E}.d{color:var(--code-dim)}
+.resp{opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
+.resp.show{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.resp{opacity:1;transform:none;transition:none}.caret{animation:none}}
+
+/* Sections */
+section.block{padding:clamp(56px,8vw,96px) 0;border-top:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:240px 1fr;gap:32px;margin-bottom:40px;align-items:baseline}
+@media (max-width:760px){.sec-head{grid-template-columns:1fr;gap:8px}}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,4vw,2.6rem);letter-spacing:-.02em;line-height:1.05;margin:0}
+.sec-head p{margin:0;color:var(--muted);max-width:40em}
+
+/* About highlights */
+.about-grid{display:grid;grid-template-columns:240px 1fr;gap:32px}
+@media (max-width:760px){.about-grid{grid-template-columns:1fr;gap:0}}
+.highlights{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 40px}
+.highlights li{padding:18px 0;border-bottom:1px solid var(--line)}
+.highlights strong{display:block;font-weight:600;margin-bottom:4px}
+.highlights span{color:var(--muted);font-size:.97rem}
+.highlights .num{font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--accent);letter-spacing:-.02em}
+
+/* Timeline */
+.timeline{list-style:none;margin:0;padding:0;position:relative}
+.job{display:grid;grid-template-columns:240px 1fr;gap:32px;padding:28px 0;border-bottom:1px solid var(--line)}
+.job:last-child{border-bottom:none}
+@media (max-width:760px){.job{grid-template-columns:1fr;gap:6px}}
+.job .when{font-family:var(--mono);font-size:.875rem;color:var(--muted);padding-top:6px}
+.job .when .now{display:inline-flex;align-items:center;gap:6px;color:var(--ok);margin-top:4px}
+.job .when .now::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.job h3{font-family:var(--display);font-weight:700;font-size:1.45rem;margin:0 0 2px;letter-spacing:-.01em}
+.job .org{color:var(--muted);margin:0 0 12px}
+.job ul{margin:0;padding-left:1.1em}
+.job li{margin:6px 0;max-width:62ch}
+
+/* Projects */
+.projects{display:flex;flex-direction:column;gap:14px}
+details.proj{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+details.proj[open]{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+details.proj summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:8px 24px;padding:22px 24px;align-items:center}
+details.proj summary::-webkit-details-marker{display:none}
+.proj-title{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.proj-title h3{font-family:var(--display);font-weight:700;font-size:1.4rem;margin:0;letter-spacing:-.01em}
+.proj-title .ind{color:var(--muted);font-size:.95rem}
+.proj-meta{font-family:var(--mono);font-size:.8rem;color:var(--muted);text-align:right;white-space:nowrap}
+.proj-desc{grid-column:1 / -1;margin:0;color:var(--ink);max-width:68ch}
+.toggle{grid-column:1 / -1;font-size:.9rem;color:var(--accent);font-weight:600}
+details.proj[open] .toggle .open-l{display:none}
+details.proj:not([open]) .toggle .close-l{display:none}
+.proj-body{padding:0 24px 24px;display:grid;grid-template-columns:1fr 220px;gap:28px;border-top:1px solid var(--line);padding-top:20px;margin:0 0 0}
+@media (max-width:760px){.proj-body{grid-template-columns:1fr}.proj-meta{text-align:left;grid-column:1/-1;grid-row:2}}
+.proj-body ul{margin:0;padding-left:1.1em}
+.proj-body li{margin:6px 0}
+.facts dt{font-size:.8rem;color:var(--muted);margin-top:12px}
+.facts dt:first-child{margin-top:0}
+.facts dd{margin:2px 0 0;font-weight:500}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tag{font-family:var(--mono);font-size:.78rem;padding:3px 8px;border-radius:6px;background:color-mix(in srgb,var(--accent) 10%,transparent);color:var(--ink);border:1px solid color-mix(in srgb,var(--accent) 22%,transparent)}
+
+/* Skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px}
+.skills h3{font-family:var(--display);font-weight:700;font-size:1.15rem;margin:0 0 12px}
+.skills .tags{gap:8px}
+.skills .tag{font-size:.85rem;padding:5px 10px}
+
+/* Education */
+.edu{display:grid;grid-template-columns:240px 1fr;gap:32px}
+@media (max-width:760px){.edu{grid-template-columns:1fr;gap:6px}}
+.edu h3{font-family:var(--display);font-weight:700;font-size:1.3rem;margin:0 0 4px}
+.edu p{margin:0;color:var(--muted)}
+
+/* Contact */
+.contact{text-align:left}
+.contact h2{font-size:clamp(2.2rem,6vw,4rem);max-width:14ch;margin-bottom:24px}
+.contact p{max-width:40em;color:var(--muted);margin:0 0 28px}
+.links{display:flex;flex-wrap:wrap;gap:12px}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+</style>
+</head>
+<body>
+
+<nav aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top"><span>~/</span>kumar-vaddi</a>
+    <ul>
+      <li class="hide-sm"><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li class="hide-sm"><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <h1>Kumar<br>Vaddi</h1>
+      <p class="role">Full Stack Developer · Node.js, Express, MongoDB, React</p>
+      <p class="lede">I build the APIs, data pipelines and dashboards behind enterprise, healthcare and e-commerce products. Three years of shipping systems that validate contracts, move files between servers, book doctor visits and run online marketplaces.</p>
+      <div class="cta">
+        <a class="btn primary" href="#projects">See my projects</a>
+        <a class="btn ghost" href="mailto:vaddikumar809@gmail.com">Email me</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/kumar-vaddi-0a7027194" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="term" role="img" aria-label="A sample API request to /api/developer/kumar-vaddi returning a 200 OK JSON response with role, experience and stack.">
+      <div class="term-head"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>api.kumarvaddi.dev</span></div>
+      <div class="term-body" aria-hidden="true">
+        <div class="req"><span class="verb">GET</span> <span id="path"></span><span class="caret" id="caret"></span></div>
+        <div class="resp" id="resp">
+          <div class="status">HTTP/1.1 <b>200 OK</b> <span class="d">· 38ms</span></div>
+<pre class="json">{
+  <span class="k">"name"</span>: <span class="s">"Kumar Vaddi"</span>,
+  <span class="k">"role"</span>: <span class="s">"Full Stack Developer"</span>,
+  <span class="k">"experience_years"</span>: <span class="n">3</span>,
+  <span class="k">"current"</span>: <span class="s">"IT Radiant"</span>,
+  <span class="k">"location"</span>: <span class="s">"Hyderabad"</span>,
+  <span class="k">"stack"</span>: [<span class="s">"Node.js"</span>, <span class="s">"Express"</span>,
+            <span class="s">"MongoDB"</span>, <span class="s">"React"</span>],
+  <span class="k">"api_speedup"</span>: <span class="s">"up to 40%"</span>,
+  <span class="k">"open_to_work"</span>: <span class="n">true</span>
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>About</h2>
+      <p>Full stack developer with 3+ years of experience in Node.js, Express.js, MongoDB and React.js. I work end to end, from API design and database tuning to the React screens people use every day.</p>
+    </div>
+    <div class="about-grid">
+      <div></div>
+      <ul class="highlights">
+        <li><span class="num">40%</span><strong>Faster APIs</strong><span>MongoDB query and index tuning that cut API response times by up to 40%.</span></li>
+        <li><strong>Secure by default</strong><span>JWT authentication and role-based access wired through backend and frontend.</span></li>
+        <li><strong>Automated data pipelines</strong><span>FTP/SFTP transfers with schedulers, retries and live monitoring dashboards.</span></li>
+        <li><strong>File parsing engines</strong><span>CSV, XLSX and TXT parsing with results surfaced in real-time dashboards.</span></li>
+        <li><strong>Microservices</strong><span>Modular services and reusable service layers across inspection, healthcare and e-commerce.</span></li>
+        <li><strong>CI/CD</strong><span>Deployments to Azure through Azure DevOps and GitHub Actions.</span></li>
+        <li><strong>Observability</strong><span>Monitoring, logging and alerting so production issues are caught before users report them.</span></li>
+        <li><strong>Team player</strong><span>Daily client calls, API documentation, QA support and sprint tracking in Jira.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Experience</h2>
+      <p>Where I’ve worked and what I’ve built there.</p>
+    </div>
+    <ol class="timeline">
+      <li class="job">
+        <div class="when">Dec 2025 – Present<br><span class="now">Current role</span></div>
+        <div>
+          <h3>Full Stack Developer</h3>
+          <p class="org">IT Radiant</p>
+          <ul>
+            <li>Building enterprise and SAP-integrated applications end to end with Node.js, Express.js, MongoDB and React.js.</li>
+            <li>Working on contract systems covering validation, chargeback processing and credit memo generation.</li>
+            <li>Designing scalable REST APIs and connecting them to React.js frontends.</li>
+          </ul>
+        </div>
+      </li>
+      <li class="job">
+        <div class="when">Nov 2022 – Dec 2025</div>
+        <div>
+          <h3>Junior Software Developer</h3>
+          <p class="org">Versatile Commerce LLP</p>
+          <ul>
+            <li>Developed backend systems and microservices for inspection, healthcare, e-commerce and data integration products.</li>
+            <li>Improved performance through query optimization, indexing and a cleaner, modular architecture.</li>
+            <li>Built cron jobs, background services and automated PDF reports with frontend status tracking.</li>
+            <li>Deployed to Azure, maintained CI/CD pipelines and monitored production logs to fix issues early.</li>
+            <li>Joined daily client calls, documented APIs and workflows, and kept sprints on track in Jira.</li>
+            <li>Handled UI integration and frontend bug fixes when frontend developers were unavailable.</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Projects</h2>
+      <p>Six production systems across enterprise, healthcare, e-commerce, data integration and real estate. Open any project to see what I built.</p>
+    </div>
+
+    <div class="projects">
+
+      <details class="proj" open>
+        <summary>
+          <div class="proj-title"><h3>iContract</h3><span class="ind">Enterprise / SAP</span></div>
+          <div class="proj-meta">Dec 2025 – Present</div>
+          <p class="proj-desc">Contract validation, chargeback processing and automated credit memo generation, integrated with SAP financial workflows.</p>
+          <span class="toggle"><span class="open-l">Show details</span><span class="close-l">Hide details</span></span>
+        </summary>
+        <div class="proj-body">
+          <ul>
+            <li>Developed Node.js and Express.js APIs for contract validation and chargeback processing.</li>
+            <li>Built React.js interfaces for managing contract data, validations and financial workflows.</li>
+            <li>Implemented business logic that creates credit memos from validation results and chargeback scenarios.</li>
+            <li>Integrated workflows with SAP processes for enterprise data handling.</li>
+            <li>Designed a modular architecture for complex validation rules, with thorough error handling.</li>
+          </ul>
+          <dl class="facts">
+            <dt>Client</dt><dd>UMEDICA</dd>
+            <dt>Role</dt><dd>Full Stack Developer</dd>
+            <dt>Stack</dt><dd class="tags"><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">React</span><span class="tag">SAP</span></dd>
+          </dl>
+        </div>
+      </details>
+
+      <details class="proj">
+        <summary>
+          <div class="proj-title"><h3>ITR Desk</h3><span class="ind">Internal tools</span></div>
+          <div class="proj-meta">Dec 2025 – Present</div>
+          <p class="proj-desc">An internal ticketing system for raising issues, tracking requests and keeping teams and clients in sync.</p>
+          <span class="toggle"><span class="open-l">Show details</span><span class="close-l">Hide details</span></span>
+        </summary>
+        <div class="proj-body">
+          <ul>
+            <li>Built the full application for ticket creation, assignment and tracking.</li>
+            <li>Developed REST APIs for tickets, user roles and status workflows.</li>
+            <li>Designed React.js dashboards for users and admins to follow tickets in real time.</li>
+            <li>Implemented role-based access control, comments, status tracking and notifications.</li>
+            <li>Optimized backend and database queries for fast ticket handling.</li>
+          </ul>
+          <dl class="facts">
+            <dt>Client</dt><dd>Internal tool</dd>
+            <dt>Role</dt><dd>Full Stack Developer</dd>
+            <dt>Stack</dt><dd class="tags"><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">React</span></dd>
+          </dl>
+        </div>
+      </details>
+
+      <details class="proj">
+        <summary>
+          <div class="proj-title"><h3>AM2PM</h3><span class="ind">Healthcare</span></div>
+          <div class="proj-meta">Jun 2025 – Dec 2025</div>
+          <p class="proj-desc">A home healthcare platform where elderly patients book certified doctors for daily, weekly, monthly or on-demand home visits.</p>
+          <span class="toggle"><span class="open-l">Show details</span><span class="close-l">Hide details</span></span>
+        </summary>
+        <div class="proj-body">
+          <ul>
+            <li>Developed modules for doctor booking, scheduling and real-time availability.</li>
+            <li>Built RESTful APIs for users, appointments and medical records.</li>
+            <li>Implemented the full care cycle: assessments, vitals capture, prescriptions, visit logs and recurring check-up plans.</li>
+            <li>Automated visit confirmations and reminders for both patients and doctors.</li>
+            <li>Generated PDF health reports with vitals, doctor notes, medications and visit history.</li>
+            <li>Split the system into microservices for users, doctors, appointments, reporting and notifications.</li>
+            <li>Covered the system with API validation, unit and integration tests and CI/CD.</li>
+          </ul>
+          <dl class="facts">
+            <dt>Client</dt><dd>AM2PM</dd>
+            <dt>Role</dt><dd>Backend Developer</dd>
+            <dt>Stack</dt><dd class="tags"><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">Microservices</span></dd>
+          </dl>
+        </div>
+      </details>
+
+      <details class="proj">
+        <summary>
+          <div class="proj-title"><h3>AgriFabrix</h3><span class="ind">E-commerce</span></div>
+          <div class="proj-meta">Jan 2025 – Jun 2025</div>
+          <p class="proj-desc">An agricultural marketplace connecting farmers, sellers and buyers, from product listing to secure checkout.</p>
+          <span class="toggle"><span class="open-l">Show details</span><span class="close-l">Hide details</span></span>
+        </summary>
+        <div class="proj-body">
+          <ul>
+            <li>Built product listing, inventory and category modules.</li>
+            <li>Developed APIs for users, products, cart, orders and payments.</li>
+            <li>Designed React.js screens for browsing, cart management and order tracking.</li>
+            <li>Implemented seller onboarding with profile creation, verification and store setup.</li>
+            <li>Optimized MongoDB queries, indexes, aggregations and pagination for scale.</li>
+            <li>Structured the TypeScript codebase with controllers, services, DTOs and middleware.</li>
+          </ul>
+          <dl class="facts">
+            <dt>Client</dt><dd>AgriFabrix</dd>
+            <dt>Role</dt><dd>Full Stack Developer</dd>
+            <dt>Stack</dt><dd class="tags"><span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">React</span></dd>
+          </dl>
+        </div>
+      </details>
+
+      <details class="proj">
+        <summary>
+          <div class="proj-title"><h3>Automated FTP</h3><span class="ind">Data integration</span></div>
+          <div class="proj-meta">Jul 2024 – Dec 2024</div>
+          <p class="proj-desc">A fault-tolerant file transfer system that moves, converts and tracks data across servers, with live monitoring.</p>
+          <span class="toggle"><span class="open-l">Show details</span><span class="close-l">Hide details</span></span>
+        </summary>
+        <div class="proj-body">
+          <ul>
+            <li>Developed APIs for file transfer, transformation and server communication.</li>
+            <li>Built React.js dashboards for transfers, logs and system status.</li>
+            <li>Implemented cron-based schedulers with retry logic and failure recovery, so transfers run with zero manual work.</li>
+            <li>Wrote CSV, XLSX and TXT parsers and format-conversion pipelines.</li>
+            <li>Stored logs, file history and configuration in MongoDB.</li>
+          </ul>
+          <dl class="facts">
+            <dt>Client</dt><dd>Dan</dd>
+            <dt>Role</dt><dd>Full Stack Developer</dd>
+            <dt>Stack</dt><dd class="tags"><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">React</span><span class="tag">SFTP</span></dd>
+          </dl>
+        </div>
+      </details>
+
+      <details class="proj">
+        <summary>
+          <div class="proj-title"><h3>PropChk</h3><span class="ind">Real estate / Inspection</span></div>
+          <div class="proj-meta">Nov 2022 – Jun 2024</div>
+          <p class="proj-desc">A large-scale inspection platform for residential and commercial properties, handling thousands of inspection records with automated reports.</p>
+          <span class="toggle"><span class="open-l">Show details</span><span class="close-l">Hide details</span></span>
+        </summary>
+        <div class="proj-body">
+          <ul>
+            <li>Developed inspection workflows for defect tracking, assignment and approvals.</li>
+            <li>Built dashboards for inspectors, contractors and admins with real-time updates.</li>
+            <li>Designed REST APIs for inspections, users and reporting.</li>
+            <li>Implemented image upload and management for defects.</li>
+            <li>Generated PDF reports with defect lists, before/after photos and graph-based health scores.</li>
+            <li>Separated inspection, reporting, contractor and user services so each could scale on its own.</li>
+          </ul>
+          <dl class="facts">
+            <dt>Client</dt><dd>PropRight</dd>
+            <dt>Role</dt><dd>Backend Developer</dd>
+            <dt>Stack</dt><dd class="tags"><span class="tag">Node.js</span><span class="tag">MongoDB</span></dd>
+          </dl>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<section class="block" id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Skills</h2>
+      <p>The tools I use day to day.</p>
+    </div>
+    <div class="skills">
+      <div>
+        <h3>Backend &amp; databases</h3>
+        <div class="tags"><span class="tag">Node.js</span><span class="tag">Express.js</span><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">JavaScript (ES6+)</span><span class="tag">MongoDB</span><span class="tag">Mongoose</span><span class="tag">REST APIs</span><span class="tag">Microservices</span></div>
+      </div>
+      <div>
+        <h3>Frontend</h3>
+        <div class="tags"><span class="tag">React.js</span><span class="tag">HTML</span><span class="tag">CSS</span></div>
+      </div>
+      <div>
+        <h3>DevOps &amp; CI/CD</h3>
+        <div class="tags"><span class="tag">Azure DevOps</span><span class="tag">GitHub Actions</span><span class="tag">Azure</span><span class="tag">Git</span><span class="tag">SourceTree</span><span class="tag">Jira</span></div>
+      </div>
+      <div>
+        <h3>Tools</h3>
+        <div class="tags"><span class="tag">Postman</span><span class="tag">Swagger</span><span class="tag">Thunder Client</span><span class="tag">Robo3T</span><span class="tag">FileZilla</span><span class="tag">PuTTY</span><span class="tag">Unit &amp; integration testing</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="education">
+  <div class="wrap">
+    <div class="edu">
+      <h2>Education</h2>
+      <div>
+        <h3>B.Tech, Mechanical Engineering</h3>
+        <p>Audisankara College of Engineering and Technology</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block contact" id="contact">
+  <div class="wrap">
+    <h2>Let’s build something together.</h2>
+    <p>I’m open to full stack and backend roles in Hyderabad or remote. Email, call or message me on LinkedIn.</p>
+    <div class="links">
+      <a class="btn primary" href="mailto:vaddikumar809@gmail.com">vaddikumar809@gmail.com</a>
+      <a class="btn ghost" href="tel:+916300368848">+91 63003 68848</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/kumar-vaddi-0a7027194" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> Kumar Vaddi</span>
+    <span>Hyderabad, India</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var path = '/api/developer/kumar-vaddi';
+  var el = document.getElementById('path'), resp = document.getElementById('resp'), caret = document.getElementById('caret');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { el.textContent = path; caret.style.display = 'none'; resp.classList.add('show'); return; }
+  var i = 0;
+  setTimeout(function type(){
+    el.textContent = path.slice(0, ++i);
+    if (i < path.length) setTimeout(type, 38);
+    else setTimeout(function(){ caret.style.display = 'none'; resp.classList.add('show'); }, 350);
+  }, 500);
+})();
+</script>
+</body>
+</html>
